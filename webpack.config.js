@@ -1,23 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
-// const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'development',
 
-  // entry: './src/js/main.js',
-
   entry: [
-    // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
     './src/js/main.js' // Your entry point
   ],
 
   output: {
-    // filename: 'main.bundle.js',
-    // publicPath: path.resolve(__dirname, 'public/javascripts'),
-
     path: path.resolve(__dirname, 'public'),
-    publicPath: '/',
     filename: 'bundle.js'
   },
 
@@ -32,15 +25,49 @@ module.exports = {
                 babelrc: false,
                 presets: [
                     ['@babel/preset-env', {
-                        // useBuiltIns: 'usage',
-                        // loose: true,
-                        // shippedProposals: true,
-                        // corejs: 2
+                        useBuiltIns: 'usage',
+                        loose: true,
+                        shippedProposals: true,
+                        corejs: 3
                     }],
                     '@babel/react'
                 ]
             }
         }
+      },
+
+      {
+        test: /\.(sa|sc|c)ss$/,
+        exclude: /node_modules/,
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: 'css-loader',
+                options: {
+                    sourceMap: true,
+                    url: false
+                }
+            }, {
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true,
+                    plugins: () => [
+                        require('postcss-preset-env')({
+                            features: {
+                                'custom-properties': {
+                                    preserve: false
+                                }
+                            }
+                        })
+                    ]
+                }
+            }, {
+                loader: 'sass-loader',
+                options: {
+                    sourceMap: true
+                }
+            }
+        ]
       },
       {
         test: /\.(html)$/,
@@ -57,26 +84,18 @@ module.exports = {
     alias: {
         // components: path.resolve(__dirname, 'src/react/components'),
     }
-},
+  },
 
-  // devtool: '#inline-source-map',
-
-  // devServer: {
-    // open: true,
-    // port: 8081,
-    // publicPath: '/',
-    // proxy: {
-    //     '*': 'http://0.0.0.0:3000'
-    // },
-    // stats: 'errors-only',
-  // },
+  devtool: '#inline-source-map',
 
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    // new HtmlWebPackPlugin({
-    //   template: "./views/index.twig",
-    //   filename: "./index.twig"
-    // })
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'stylesheets/[name].css',
+      chunkFilename: '[id].css'
+    }),
   ]
 };

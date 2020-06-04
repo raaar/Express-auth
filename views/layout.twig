@@ -5,23 +5,21 @@
 <html>
   <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'></link>
+    <link rel='stylesheet' href='/stylesheets/main.css'></link>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
     {% block content %}
     {% endblock %} 
-
-    <br>
     
-    <footer>
-      <a href="/auth/logout">Logout</a>      
+    <footer class="text-center">
+      &copy; Raflondon
     </footer>
 
     {% block scripts %}
       <script>DATA = {{DATA|json_encode()}}</script>
-      <script src="/bundle.js"></script>
+      <script src="bundle.js"></script>
     {% endblock %} 
   </body>
 </html>

@@ -9,7 +9,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
 const Twig = require('twig')
-// const hotMiddleware = require('./lib/hot');
 
 const app = express();
 app.set('port', process.env.PORT || 3000);
@@ -24,8 +23,6 @@ require('./app/init')(global.APP, app);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
-
-// if (process.env.NODE_ENV === 'development') app.use(hotMiddleware);
 
 app.use(logger('dev'));
 app.use(express.json());

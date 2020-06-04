@@ -1,9 +1,12 @@
 {% extends './layout.twig'  %} 
 
 {% block content %}
-    <h1>{{title}}</h1>
-    <p>Join</p>
-
-    <a href="/auth/google">Login with google</a>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-6 text-center m-5">
+        <a href="/auth/google" class="btn btn-primary btn-large">Login with google</a>   
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
