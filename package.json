@@ -19,7 +19,7 @@
     "morgan": "~1.9.1",
     "passport": "^0.4.1",
     "passport-google-oauth": "^2.0.0",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "twig": "^1.15.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
